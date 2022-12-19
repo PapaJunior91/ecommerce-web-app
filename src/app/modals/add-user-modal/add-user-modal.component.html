@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">{{modal_title}}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRef.close()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form #UserForm="ngForm" ngNativeValidate>
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+          </div>
+          <input required name="first_name" type="text" class="form-control" placeholder="First Name" aria-label="First Name"
+          aria-describedby="basic-addon1" [(ngModel)]="user_info.first_name" />
+        </div>
+
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+          </div>
+          <input required name="last_name" type="text" class="form-control" placeholder="Last Name" aria-label="Phone Number"
+          aria-describedby="basic-addon1" [(ngModel)]="user_info.last_name" />
+      </div>
+
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+          </div>
+          <input required name="email" type="text" class="form-control" placeholder="Email" aria-label="Email Address"
+          aria-describedby="basic-addon1" [(ngModel)]="user_info.email" />
+      </div>
+
+      <div class="input-group mb-2">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+          </div>
+          <input required name="phone_number" type="text" class="form-control" placeholder="Phone Number" aria-label="Location"
+          aria-describedby="basic-addon1" [(ngModel)]="user_info.phone_number" />
+      </div>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-secret"></i></span>
+        </div>
+        <select id="role" name="role" class="form-control" [(ngModel)]="user_info.role">
+            <option disabled selected>Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="ordinary user">Ordinary User</option>
+        </select>
+    </div>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-key"></i></span>
+        </div>
+        <!-- <input id="other_reason_text" type="text" placeholder="Type Other Reason..." name="reason" class="form-control" ngModel> -->
+        <input [disabled]="form_state == 'edit'" required name="password" type="text" placeholder="Password" class="form-control" aria-label="Location" aria-describedby="basic-addon1" [(ngModel)] = "user_info.password" />
+    </div>
+    </form>
+
+    <div *ngIf="on_loading"  class="mt-2 alert alert-primary">
+      Uploading Data, Please Wait! <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+    </div>
+
+    <div class="alert text-white {{alert_status}}" *ngIf="alert">{{message}}</div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.close()">
+      Close
+    </button>
+    <button type="button" class="btn btn-info theme-color" (click)="switchFormState()">Save changes</button>
+  </div>

@@ -1,0 +1,26 @@
+    <div class="modal-header">
+    <h5 class="modal-title">{{modal_title}}</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRefAdd.close()"></button>
+  </div>
+  <div class="modal-body">
+    <p>
+        {{modal_body}}
+    </p>
+
+    <div *ngIf="on_loading"  class="mt-2 alert alert-primary">
+      Uploading Data, Please Wait! <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+    </div>
+
+    <div class="alert text-white {{alert_status}}" *ngIf="alert">{{message}}</div>
+    
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalAction('cancel')">
+      Close
+    </button>
+    <button type="button" class="btn btn-info theme-color" (click)="modalAction('confirm')">Confirm</button>
+  </div>

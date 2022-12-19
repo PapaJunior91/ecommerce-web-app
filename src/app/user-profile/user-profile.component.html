@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row mt-4">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"> 
+            <form #editUserProfileForm="ngForm" class="mb-2 card text-center border border-light p-5">
+              
+                <h5 class="mb-4">Edit Profile </h5>
+
+                <!--Message-->
+                <div class="alert alert-info  text-white" *ngIf="info_message">{{info_message}}</div>
+                <div class="alert alert-danger text-white"  *ngIf="error_message">{{error_message}}</div>
+                <div class="alert alert-success  text-white" *ngIf="success_message">{{success_message}}</div>
+
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <input type="image" [src]="profile_photo_url" class="img-fluid rounded" (click)="selectImage()" height="100px"  />
+                    </div>
+                    <input id="image_upload" type="file" name="profile_photo" placeholder="Photo" required="" capture (change)="getFileFromForm($event)">
+                    <div class="col-4"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-4 float-start">
+                        <button [disabled]="!file_data" type="file" (click)="uploadProfilePhoto()" class="btn btn-sm btn-primary" style="position: relative;">
+                            Apply
+                        </button>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                
+                <!-- username -->
+                <input type="text" id="username" name="username" class="form-control mb-2 my-2" placeholder="Username" [(ngModel)]="user_info.username">
+                
+                <!-- First Name -->
+                <input type="text" id="firstname" name="firstname" class="form-control mb-2" placeholder="First Name" [(ngModel)]="user_info.first_name">
+
+                <!-- Last Name -->
+                <input type="text" id="lastname" name="lastname" class="form-control mb-2" placeholder="Last Name" [(ngModel)]="user_info.last_name">
+                
+                <!-- Email -->
+                <input type="text" id="email" name="email" class="form-control mb-2" placeholder="Email Address" [(ngModel)]="user_info.email">
+                
+                <!-- Phone -->
+                <input type="text" id="phone_number" name="phone_number" class="form-control mb-2" placeholder="Phone Number" [(ngModel)]="user_info.phone_number">
+                                  
+                <!-- Sign in button -->
+                <button type="button" (click)="editProfile(editUserProfileForm.value)" class="theme-color btn btn-info my-2">Apply</button>
+                
+            </form>
+
+            <form #changeUserPasswordForm="ngForm" class="card text-center border border-light p-5 mb-4">
+              
+                <h5 class="mb-4">Change Password </h5>
+
+                <!--Message-->
+                <div class="alert alert-info  text-white" *ngIf="info_message">{{info_message}}</div>
+                <div class="alert alert-danger text-white"  *ngIf="error_message">{{error_message}}</div>
+                <div class="alert alert-success  text-white" *ngIf="success_message">{{success_message}}</div>
+
+                <!-- new password -->
+                <input type="text" id="old_password" name="old_password" class="form-control mb-2" placeholder="Old Password" ngModel>
+                
+                <!-- Password -->
+                <input type="text" id="new_password" name="new_password" class="form-control mb-2" placeholder="New Password" ngModel>
+                                  
+                <!-- Sign in button -->
+                <button type="button" (click)="changePassword(changeUserPasswordForm.value)" class="theme-color btn btn-info my-2">Apply</button>
+                
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div> 
+</div>

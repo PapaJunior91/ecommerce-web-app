@@ -1,0 +1,14 @@
+
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        script:
+          - npm install --force
+          - npm install -g @angular/cli
+          - ng build --prod
+          - scp -r $BITBUCKET_CLONE_DIR/dist/ root@109.74.197.156:/var/www/html/kuunda-tdr-agent-portal
+          - echo "Successfully Completed Build & Deploy"

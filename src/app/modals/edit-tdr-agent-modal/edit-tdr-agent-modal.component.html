@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Add TDR Agent</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRefEdit.close()"></button>
+  </div>
+  <div class="modal-body">
+    <form #editTDRAgentForm="ngForm" ngNativeValidate>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
+            </div>
+            <input required name="first_name" type="text" class="form-control" placeholder="First Name" aria-label="Username"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.first_name" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
+            </div>
+            <input required name="last_name" type="text" class="form-control" placeholder="Last Name" aria-label="Username"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.last_name" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+            </div>
+            <input required name="username" type="text" class="form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.username" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+            </div>
+            <input required name="phone_number" type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.phone_number" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input required name="email" type="text" class="form-control" placeholder="Email Address" aria-label="Email Address"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.email" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker"></i></span>
+            </div>
+            <input required name="location" type="text" class="form-control" placeholder="Location" aria-label="Location"
+            aria-describedby="basic-addon1" [(ngModel)]="tdr_agent.location" />
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRefEdit.close()">
+      Close
+    </button>
+    <button type="button" class="btn btn-info theme-color"  (click)="editTDRAgent(editTDRAgentForm.value)">Save changes</button>
+  </div>

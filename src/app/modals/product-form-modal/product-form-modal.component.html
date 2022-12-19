@@ -1,0 +1,102 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRefAdd.close()"></button>
+  </div>
+  <div class="modal-body">
+    <mdb-tabs>
+        <mdb-tab title="Single Product">
+            <form #addProductForm="ngForm" ngNativeValidate>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-box"></i></span>
+                    </div>
+                    <input required name="product_name" type="text" class="form-control" placeholder="Product Name" aria-label="Username"
+                    aria-describedby="basic-addon1" ngModel />
+                </div>
+        
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-image"></i></span>
+                    </div>
+                    <input type="file" class="form-control" id="product_image"
+                    name="product_image" required #product_image="ngModel" ngModel (change)="getFileFromForm($event)" />
+                </div>
+        
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-dollar"></i></span>
+                    </div>
+                    <input required name="product_cost" type="number" class="form-control" placeholder="Cost" aria-label="Phone Number"
+                    aria-describedby="basic-addon1" ngModel />
+                </div>
+        
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-tag"></i></span>
+                    </div>
+                    <input required name="product_price" type="number" class="form-control" placeholder="Price" aria-label="Email Address"
+                    aria-describedby="basic-addon1" ngModel />
+                </div>
+        
+                <!-- <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker"></i></span>
+                    </div>
+                    <input required name="location" type="number" class="form-control" placeholder="Quantity" aria-label="Location"
+                    aria-describedby="basic-addon1" ngModel />
+                </div> -->
+        
+              
+            </form>
+        </mdb-tab>
+        <mdb-tab title="Multiple Products">
+            <form #uploadTDRAgentForm="ngForm" ngNativeValidate>
+                <button class="btn btn-info"><i class="fa fa-download"></i></button>
+                <label class="form-label" for="customFile">Upload Excel Sheet</label>
+                <input type="file" class="form-control" id="product_image"
+                name="product_image" required #product_image="ngModel" ngModel (change)="getFileFromForm($event)" />       
+            </form>
+        </mdb-tab>
+        <mdb-tab title="Add Stock">
+            <form #addTDRAgentForm="ngForm" ngNativeValidate>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-box"></i></span>
+                    </div>
+                    <!-- <input required name="first_name" type="text" class="form-control" placeholder="First Name" aria-label="Username"
+                    aria-describedby="basic-addon1" ngModel /> -->
+                    <select class="form-control">
+                        <option disabled>Select Product</option>
+                        <option></option>
+                        <option></option>
+                    </select>
+                </div>
+        
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-map-marker"></i></span>
+                    </div>
+                    <input required name="location" type="number" class="form-control" placeholder="Quantity" aria-label="Location"
+                    aria-describedby="basic-addon1" ngModel />
+                </div>
+        
+            </form>
+        </mdb-tab>
+    </mdb-tabs>    
+    <div *ngIf="on_loading"  class="mt-2 alert alert-primary">
+        Adding Data, Please Wait! <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+    </div>
+    <div *ngIf="!on_loading && success_message"  class="mt-2 alert alert-success">
+        {{success_message}}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRefAdd.close()">
+      Close
+    </button>
+    <button type="button" class="btn btn-info theme-color"  (click)="addProduct()">Save changes</button>
+  </div>

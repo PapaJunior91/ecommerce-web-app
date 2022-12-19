@@ -1,0 +1,86 @@
+
+<main class="mx-lg-6">
+    <div class="container-fluid mt-2">
+        <div class="row wow fadeIn">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        Customer Details
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div class=" mb-2">
+                                <label for="input4">Select Customer</label>
+                                <input class="form-control w-100" type="text">
+                            </div>
+                            <div class=" mb-2">
+                                <label for="input4">Phone Number</label>
+                                <input class="form-control w-100" type="text">
+                            </div>
+                            <div class=" mb-2">
+                                <label for="input4">Email (optional)</label>
+                                <input class="form-control w-100" type="text">
+                            </div>
+                        </div>
+                       
+                        <!-- <div class="d-flex justify-content-between">
+                            <div>
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>
+                           
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-2">
+                <div class="card">
+                    <div class="card-header">
+                        Enter Sales
+                    </div>
+                    <div class="card-body">
+                        <div class=" mb-2">
+                            <label for="input4">Select Product</label>
+                            <input class="form-control w-50" type="text">
+                        </div>
+                        <div class="d-flex justify-content-between" *ngFor="let selected_product of selected_products">
+                            <div class="form-group">
+                                <label for="input4">Product</label>
+                                <input type="" class="form-control" id="input4" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="input4">Price</label>
+                                <input type="" class="form-control" id="input4" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="input4">Discount</label>
+                                <input type="" class="form-control" id="input4" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="input4">Quantity</label>
+                                <input type="" class="form-control" id="input4" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="input4">Sub Total</label>
+                                <input type="" class="form-control" id="input4" placeholder="">
+                            </div>
+
+                            <div class="d-flex align-items-center mt-3">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-trash text-white"></i></button>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <button type="button" class="btn btn-primary">Save</button>
+                                <button type="button" class="btn btn-primary mx-1">Save & Print Reciept</button>
+                            </div>
+                            <div class="mx-5">
+                                <input type="text" class="form-control w-100" disabled placeholder="Total">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

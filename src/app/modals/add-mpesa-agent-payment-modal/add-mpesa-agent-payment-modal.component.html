@@ -1,0 +1,73 @@
+    <div class="modal-header">
+    <h5 class="modal-title">Add Mpesa Agent Payment</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modalRefAdd.close()"></button>
+  </div>
+  <div class="modal-body">
+    <form #addMPesaAgentPaymentForm="ngForm" ngNativeValidate>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend w-25">
+                <span class="input-group-text w-100" id="basic-addon1">Visit Date</span>
+            </div>
+            <input required name="visitation_date" type="date" class="form-control" aria-label="Visitation Date"
+            aria-describedby="basic-addon1" [(ngModel)]="current_date" />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend w-25">
+                <span class="input-group-text w-100" id="basic-addon1">Reason</span>
+            </div>
+            <!-- <input required name="reason" type="text" class="form-control" placeholder="Reason" aria-label="Reason"
+            aria-describedby="basic-addon1" ngModel /> -->
+            <input id="other_reason_text" type="text" placeholder="Type Other Reason..." name="reason" class="form-control" ngModel>
+            <select id="other_reason_select" name="reason" class="form-control" (change)="setOtherValue($event.target.value)" ngModel>
+                <option disabled selected>Select Reason</option>
+                <option value="finacial instability">Finacial Instability</option>
+                <option value="bussiness closed">Bussiness Closed</option>
+                <option value="system issues">System Issues</option>
+                <option value="not aware of the loan">Not Aware About the Loan</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Amount Paid</span>
+            </div>
+            <input required name="amount_paid" type="text" class="form-control" placeholder="Amount Paid" aria-label="Amount Paid"
+            aria-describedby="basic-addon1" ngModel />
+            
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend w-25">
+                <span class="input-group-text w-100" id="basic-addon1">Next Date</span>
+            </div>
+            <input required name="next_payment_date" type="date" class="form-control" placeholder="Next Date" aria-label="Next Date"
+            aria-describedby="basic-addon1" ngModel />
+        </div>
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend w-25">
+                <span class="input-group-text w-100" id="basic-addon1">Amount</span>
+            </div>
+            <input required name="next_payment_amount" type="text" class="form-control" placeholder="Amount To Be Paid" aria-label="Amount"
+            aria-describedby="basic-addon1" ngModel />
+        </div>
+    </form>
+    <div *ngIf="on_loading && !success_message"  class="mt-2 alert alert-primary">
+        Saving Data, Please Wait! <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      </div>
+      <div *ngIf="success_message"  class="mt-2 alert alert-success">
+        {{success_message}}
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRefAdd.close()">
+      Close
+    </button>
+    <button type="button" class="btn btn-info theme-color"  (click)="addMPesaAgentPayment(addMPesaAgentPaymentForm.value)">Save changes</button>
+  </div>

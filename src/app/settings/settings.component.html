@@ -1,0 +1,161 @@
+<!--Main layout-->
+<main class="mx-lg-6">
+
+    <!--Message-->
+    <div class="alert alert-danger error_message" *ngIf="error_message"></div>
+    <div class="alert alert-info info_message" *ngIf="info_message"></div>
+    <div class="alert alert-success success_message" *ngIf="success_message"></div>
+    
+    <div class="container-fluid mt-2">
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-lg-12">
+                
+                <!--Card-->
+                <div class="card">
+                    <div class="card-header">
+                        Settings
+                    </div>
+                    <!--Card content-->
+                    <div class="card-body">
+                        <div class="row" *ngIf="">
+                            <div class="col-lg-12 text-center">
+                                <div  class="spinner-border text-primary" role="status"></div>
+                            </div>
+                        </div>
+
+                        <!--div id="displayAgentsID" class="col">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <strong style="color: #ABB2B9;">Mpesa Agent Arreas</strong>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                           
+                                        </div>
+                                        <div class="col-md-2">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button
+                                                class="theme-color btn btn-info"
+                                                type="button"
+                                                (click)="basicCollapse.toggle()"
+                                                [attr.aria-expanded]="!basicCollapse.collapsed"
+                                                aria-controls="collapseExample">
+                                                Expand
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12 mt-3" id="collapseExample" mdbCollapse #basicCollapse="mdbCollapse">
+                                            <div class="row p-1" style="background-color: #F8F9F9;">
+                                                <div class="col-lg-12">
+                                                    <table id="agentsTable" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Mpesa Agent ID</th>
+                                                                <th>Last Visitation Date</th>
+                                                                <th>Reason</th>
+                                                                <th>Amount Paid</th>
+                                                                <th>Commission</th>
+                                                                <th>Next Payment Date</th>
+                                                                <th>Next Amount</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div-->
+
+                        <div id="tdr_agent_commission_settinds" class="col">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <strong style="color: #ABB2B9;">TDR Agent Commission</strong>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12">
+                                            <button
+                                                id="toggleButton"
+                                                class="theme-color btn btn-info"
+                                                type="button"
+                                                (click)="basicCollapse.toggle();toggleButtonLabel()"
+                                                [attr.aria-expanded]="!basicCollapse.collapsed"
+                                                aria-controls="collapseExample2">
+                                                Expand
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12 mt-3" id="collapseExample2" mdbCollapse #basicCollapse="mdbCollapse">
+                                            <div class="row p-1" style="background-color: #F8F9F9;">
+                                                <div class="col-lg-12">
+                                                    <table id="agentsTable" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="th-commission">Min Collection</th>
+                                                                <th class="th-commission">Max Collection</th>
+                                                                <th>Percentage Commission(%)</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let collection_commission of collection_commissions;let i = index">
+                                                               <td><input [value]="currencyFormart(collection_commission.min)" mdbInput type="text" id="min{{i}}" class="form-control" /></td> 
+                                                               <td><input [value]="currencyFormart(collection_commission.max)" mdbInput type="text" id="max{{i}}" class="form-control" /></td> 
+                                                               <td><mdb-range [value]="collection_commission.percentage" id="percentage{{i}}"></mdb-range></td> 
+                                                               <td>
+                                                                 <div class="btn-group">
+                                                                     <button *ngIf="collection_commission.id" (click)="updateCommission(i, collection_commission.id)" class="theme-color btn btn-info" type="button">
+                                                                         <i class="fas fa-pencil"></i>
+                                                                        </button> 
+                                                                        <button *ngIf="!collection_commission.id" (click)="saveCommission(i)" class="save-btn{{i}} theme-color btn btn-info">
+                                                                            <i class="fas fa-save"></i> <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                                                        </button>
+                                                                        <button (click)="deleteCommission(i, collection_commission.id)" class="theme-color btn btn-info" type="button">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </button>
+                                                                    </div>
+                                                               </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <button (click)="addCommission()" class="theme-color btn btn-info" type="button">
+                                                                        Add
+                                                                    </button>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</main>

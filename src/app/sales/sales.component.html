@@ -1,0 +1,163 @@
+<!--Main layout-->
+<main class="mx-lg-6">
+
+    <!--Message-->
+    <div class="alert alert-danger error_message" *ngIf="error_message"></div>
+    <div class="alert alert-info info_message" *ngIf="info_message"></div>
+    <div class="alert alert-success success_message" *ngIf="success_message"></div>
+    
+    <div class="container-fluid mt-2">
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-lg-12">
+                <div class="row wow fadeIn">
+                    <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-header">
+                            Filter Sales
+                        </div>
+                            <div class="card-body row">
+
+                              <div class="col-md-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button name="searchAgent" class="theme-color btn btn-info"><i class="fa fa-search"></i></button>
+                                    </div>
+                                    <input id="mpesa_agent_id" type="text" class="form-control" name="mpesa_agent_id" placeholder="Search...">
+                                </div>
+                              </div>
+
+                              <div class="col-md-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="theme-color input-group-text"><i class="fas fa-calendar text-white"></i></span>
+                                    </div>
+                                    <input class="form-control" type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" />
+                                </div>
+                              </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/> 
+                <!--Card-->
+                <div class="card">
+                    <div class="card-header">
+                      <div class="col-6">
+                        Sales
+                      </div>
+                      <!-- <div class="col-6" style="background-color: red;">
+                        <div class="row float-right">
+                            <button  title="Download PDF" type="button" class="theme-color btn btn-small btn-info"><i class="fa fa-plus-circle"></i><span class="small-text"></span> </button>
+                        </div>
+                      </div> -->
+                    </div>
+                    <!--Card content-->
+                    <div class="card-body">
+                        <div class="row" *ngIf="loading_spinner">
+                            <div class="col-lg-12 text-center">
+                                <div  class="spinner-border text-primary" role="status"></div>
+                            </div>
+                        </div>
+
+                        <div id="displayAgentsID" class="col">
+                            <!-- <div class="card mb-2"> -->
+                                <!-- <div class="card-body"> -->
+                                  <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>#</th>
+                                            <th>Sales ID</th>
+                                            <th>Product Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                            <th>Cost</th>
+                                            <th>Profit</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                    
+                                    <tbody>
+                                      <div *ngIf="loading_spinner" style="position: relative;left: 700px;"  class="spinner-border text-primary" role="status"></div>
+                                      <div *ngIf="no_data_found" style="position: relative;left: 700px;">No Data Found</div>
+                                    
+                                      <tr *ngFor="let tdr_agent of tdr_agents | slice: (page-1) * pageSize : page * pageSize">
+                                        <td>
+                                          <input class="form-check-input" type="checkbox" [id]="tdr_agent.user_id" />
+                                        </td>
+                                        <td>{{tdr_agent.user_id}}</td>
+                                        <td><img style="border-radius: 50%;" [src]="root_url+tdr_agent.profile_photo" height="50"></td>
+                                        <td>{{tdr_agent.username}}</td>
+                                        <td>{{tdr_agent.phone_number}}</td>
+                                        <td>{{tdr_agent.email}}</td>
+                                        <td>{{tdr_agent.last_login}}</td>
+                                        <td>{{tdr_agent.status}}</td>
+                                        <td>
+                                          <div class="btn-group">
+                                            <button class="theme-color btn btn-info">
+                                              <i class="fas fa-upload"></i>
+                                            </button>
+                                            <button class="theme-color btn btn-info">
+                                              <i class="fas fa-pencil"></i>
+                                            </button>
+                                            <button class="theme-color btn btn-small btn-info">
+                                              <i class="fas fa-archive"></i>
+                                            </button>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                    
+                                  <ngb-pagination
+                                    [(page)]="page"
+                                    [pageSize]="pageSize"
+                                    [collectionSize]="tdr_agents.length">
+                                  </ngb-pagination>
+                    
+                                  <div *ngFor="let tdr_agent of tdr_agents" class="tdr-agent-card card mb-2">
+                                    <div class="card-body row">
+                                      <div class="col-md-4 text-center">
+                                        <img src="../../assets/img/user-white-black.png" height="100px">
+                                      </div>
+                                      <div class="col-md-4 mb-1">
+                                        {{tdr_agent.username}}<br> 
+                                        {{tdr_agent.email}}<br>
+                                        {{tdr_agent.phone_number}}<br>
+                                        {{tdr_agent.last_login}}<br>
+                                      </div>
+                                      <div class="col-md-4 text-center">
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                          <button class="theme-color btn btn-small btn-info theme-color">
+                                            <i class="fas fa-archive"></i>
+                                          </button>
+                                          <button class="theme-color btn btn-info theme-color">
+                                            <i class="fas fa-pencil"></i>
+                                          </button>
+                                          <button class="theme-color btn btn-info theme-color">
+                                            <i class="fas fa-upload"></i>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                <!-- </div> -->
+                            <!-- </div> -->
+                        </div>
+                        <div class="row" *ngIf="no_data_found">
+                            <div class="col-lg-12 text-center">
+                                No Data Found
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,157 @@
+<!--Main layout-->
+<main class="mx-lg-6">
+    <div class="container-fluid mt-2"> 
+
+      <div class="row wow fadeIn">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              Filter Users
+          </div>
+              <div class="card-body">
+                  <div class="input-group w-25">
+                      <div class="input-group-prepend">
+                          <button name="searchUser" class="theme-color btn btn-info"><i class="fa fa-search"></i></button>
+                      </div>
+                      <input id="search_user" type="text" class="form-control" name="search_user" placeholder="Search User..." (keyup)="searchUser()">
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    <br/>                
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-lg-12">
+        
+      <!--Card-->
+      <div class="card mb-2">
+        <!--Card content-->
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6 align-self-center">
+                <span> Users</span>
+            </div>
+             <!-- <div class="col-3">
+              <div id="bulk_select_grp_btns" class="btn-group" role="group" aria-label="Basic example" *ngIf="bulk_users_edit.length">
+                <button (click)="archiveUser(bulk_users_edit)" title="Archive" type="button" class="btn btn-primary btn-small"><i class="fa fa-archive"></i></button>
+              </div>
+            </div> -->
+            <div class="col-6">
+              <div class="row  float-right">
+                  <button (click)="archiveUser(bulk_users_edit)" title="Archive" type="button" class="theme-color btn btn-small btn-info theme-color" *ngIf="bulk_users_edit.length"><i class="fas fa-archive"></i></button>
+                      &nbsp;
+                  <button (click)="exportPdf()"  title="Download PDF" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-pdf"></i></button>
+                      &nbsp;
+                  <button  (click)="exportExcel()" title="Download Excel" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-excel"></i></button>
+                    &nbsp;
+                  <button (click)="openAddUserModal('', 'Add User', 'add')" title="Add User" type="button" class="theme-color btn btn-small btn-info"><i class="fa fa-plus-circle"></i><span class="small-text"></span> </button>
+              </div>
+          </div>
+          </div>
+        </div>
+
+        <!--Message-->
+        <div class="alert alert-info  text-white" *ngIf="info_message">{{info_message}}</div>
+        <div class="alert alert-danger text-white"  *ngIf="error_message">{{error_message}}</div>
+        <div class="alert alert-success  text-white" *ngIf="success_message">{{success_message}}</div>
+         
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                        <th>Last Login</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+              
+
+                <tbody>
+                  <div *ngIf="loading_spinner" style="position: relative;left: 700px;"  class="spinner-border text-primary" role="status"></div>
+                  <div *ngIf="no_data_found" style="position: relative;left: 700px;">No Data Found</div>
+                
+                  <tr *ngFor="let user of users | slice: (page-1) * pageSize : page * pageSize">
+                    <td>
+                      <input class="form-check-input" type="checkbox" [id]="user.id" style="margin-left: 0px;" (change)="setBulkItems(user.id)" />
+                    </td>
+                    <td>{{user.id}}</td>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone_number}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.last_login}}</td>
+                    <td>{{user.status}}</td>
+                    <td>{{dateFormart(user.created_at)}}</td>
+                    <td>{{dateFormart(user.updated_at)}}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="theme-color btn btn-info" (click)="openAddUserModal(user, 'Edit User', 'edit')">
+                          <i class="fas fa-pencil"></i>
+                        </button>
+                        <button class="theme-color btn btn-small btn-info" (click)="archiveUser(user.id)">
+                          <i class="fas fa-archive"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="users.length">
+              </ngb-pagination>
+
+              <div *ngFor="let user of users" class="card_container tdr-agent-card card mb-2">
+                <div class="card-body row">
+                  <div class="col-md-4 text-center">
+                    <img src="../../assets/img/user-white-black.png" height="100px">
+                  </div>
+                  <div class="col-md-4 mb-1">
+                    {{user.username}}<br> 
+                    {{user.email}}<br>
+                    {{user.phone_number}}<br>
+                    {{user.last_login}}<br>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button class="theme-color btn btn-small btn-info theme-color">
+                        <i class="fas fa-archive"></i>
+                      </button>
+                      <button class="theme-color btn btn-info theme-color">
+                        <i class="fas fa-pencil"></i>
+                      </button>
+                      <button class="theme-color btn btn-info theme-color">
+                        <i class="fas fa-upload"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <!--Card content-->
+
+      </div>
+      <!--Card-->
+
+    </div>
+    <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+    </div>
+</main>

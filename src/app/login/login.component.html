@@ -1,0 +1,32 @@
+ <div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-6"> 
+            <form #loginForm="ngForm" class="card text-center border border-light p-5">
+              
+                <span><img src="../../assets/img/logo.png " class="img-fluid" width="200" height="200"></span>
+                <h4>Shop | Login</h4>
+
+                <!--Message-->
+                <div class="alert text-white {{alert_status}}" *ngIf="alert">{{message}}</div>
+
+                <!-- phone -->
+                <input type="text" id="phone_number" name="phone_number" class="form-control mb-4" placeholder="Phone" ngModel>
+                
+                <!-- Password -->
+                <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Password" ngModel>
+                                  
+                <!-- Sign in button -->
+                <button type="button" (click)="loginUser()" class="theme-color btn btn-info btn-block my-4">Login</button>
+
+                <div class="d-flex justify-content-around">
+                    <div>
+                        <a routerLink="password-recovery">Forgot password?</a>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="col-md-3"></div>
+    </div> 
+</div>

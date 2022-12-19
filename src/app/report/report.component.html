@@ -1,0 +1,291 @@
+ <!--Main layout-->
+ <main class="mx-lg-6">
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--Message-->
+                <div class="alert alert-danger  text-white" *ngIf="error_message">{{error_message}}</div>
+                <div class="alert alert-info  text-white" *ngIf="info_message">{{info_message}}</div>
+            </div>
+        </div>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-lg-12">
+                <div class="row wow fadeIn">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="fa fa-filter theme-color-bg"></i> Filter
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- <div class="col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="theme-color input-group-text"><i class="fas fa-search text-white"></i></span>
+                                                    </div>
+                                                    <input id="tdr_agent_name" (blur)="closeDropdown()" (click)="clearInput()" type="text" class="form-control" name="tdr_agent_name" placeholder="Select Report Type" (keyup)="searchTDRAgent($event.target.value)">
+                                                    <input id="tdr_agent_id" type="hidden" name="tdr_agent_id">
+                                                </div>
+                                                <div id="displayTDRAgents">
+                                                    <ul class="list-group" *ngFor="let tdr_agent of tdr_agents">
+                                                        <li class="list-group-item" (click)="getTDRAgentReport(tdr_agent.tdr_agent_id, tdr_agent.first_name, tdr_agent.last_name)">{{tdr_agent.first_name}} {{tdr_agent.last_name}}</li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="theme-color input-group-text"><i class="fas fa-search text-white"></i></span>
+                                                    </div>
+                                                    <input id="mpesa_agent_id" (blur)="closeDropdown()" (click)="clearInput()" type="text" class="form-control" name="mpesa_agent_id" placeholder="Search Mpesa Agent" (keyup)="filterData('',$event.target.value)">
+                                                    <input id="mpesa_agent_id" type="hidden" name="mpesa_agent_id">
+                                                </div>
+                                                <div id="displayTDRAgents">
+                                                    <ul class="list-group" *ngFor="let tdr_agent of tdr_agents">
+                                                        <li class="list-group-item" (click)="getTDRAgentReport(tdr_agent.tdr_agent_id, tdr_agent.first_name, tdr_agent.last_name)">{{tdr_agent.first_name}} {{tdr_agent.last_name}}</li>
+                                                    </ul>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-md-3">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="theme-color input-group-text"><i class="fas fa-calendar text-white"></i></span>
+                                                    </div>
+                                                    <input class="form-control" type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <span>Filter Visitation Dates</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate($event, daterange)" />
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">From</span>
+                                                    </div>
+                                                    <input id="date_from" type="date" class="form-control" name="date_from" (change)="filterByVisitationDate()">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">To</span>
+                                                    </div>    
+                                                    <input id="date_to" type="date" class="form-control" name="date_to" (change)="filterByVisitationDate()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->
+                        </div>
+                    </div>
+                </div>
+                <br/> 
+                <!--Card-->
+                <div class="card">
+                    <div class="card-body">
+                       <div class="d-flex justify-content-between">
+                            <div class="w-100">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 id="tdr_agents_mpesa_count" class="card-title">
+                                        {{total_number_of_tdr_agents}}
+                                        </h5>
+                                        <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <span class="card-text"># Of Sales <i class="fa fa-arrow-up text-success" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 mx-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 id="tdr_agents_mpesa_count" class="card-title">
+                                        {{total_number_of_mpesa_agents}}
+                                        </h5>
+                                        <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <span class="card-text">Revenue <i class="fa fa-arrow-up text-success" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="tdr_agents_outstanding" class="card-title">
+                                        {{total_outstanding}}
+                                        </div>
+                                        <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <span class="card-text">Profit <i class="fa fa-arrow-up text-success" aria-hidden="true"></i></span>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100 mx-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        
+
+                                        <h5 id="amount_collected" class="card-title">
+                                            {{total_amount_collected}}
+                                        </h5>
+                                        <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <span class="card-text">Cost <i class="fa fa-arrow-down text-danger" aria-hidden="true"></i> </span>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="w-100">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 id="tdr_agent_commission" class="card-title">
+                                        {{currencyFormart(total_commission)}}
+                                        </h5>
+                                        <div *ngIf="loading_spinner" class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                                        <p class="card-text">AGENT COMMISSION</p>
+                                    </div>
+                                </div>
+                            </div> -->
+                       </div> 
+                    </div>
+                </div>
+                <br>
+                 <!--Card-->
+                 <div class="card mb-5">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6 align-self-center">
+                                <strong>{{tdr_agent_name}}</strong> <span> Reports</span>
+                            </div>
+                            <div class="col-6">
+                                <div class="row  float-right">
+                                    <button (click)="exportAgentDataPdf()" title="Print Chart" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-print"></i></button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-body d-flex justify-content-between">
+                       
+
+                        <div class="vh-100 w-50">
+                             <canvas baseChart
+                            [datasets]="lineChartData"
+                            [labels]="lineChartLabels"
+                            [options]="lineChartOptions"
+                            [legend]="lineChartLegend"
+                            [chartType]="lineChartType">
+                        </canvas>
+                             <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                        </canvas>
+                        </div>
+                        <div class="vh-100 w-50">
+                           
+                             <canvas baseChart
+                            [datasets]="doughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [options]="doughnutChartOptions"
+                            [legend]="doughnutChartLegend"
+                            [chartType]="doughnutChartType">
+                        </canvas>
+
+                        <canvas baseChart
+                        [datasets]="lineChartDataCost"
+                        [labels]="lineChartLabelCosts"
+                        [options]="lineChartOptionsCost"
+                        [legend]="lineChartLegendCost"
+                        [chartType]="lineChartTypeCost">
+                    </canvas>
+                        
+                        </div>
+
+                    </div>
+                </div>
+                 <!--Card-->
+                 <!-- <div class="card mt-2 mb-2">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6 align-self-center">
+                                <strong>{{tdr_agent_name}}</strong> <span> Mpesa Agents Visits</span>
+                            </div>
+                            <div class="col-6">
+                                <div class="row  float-right">
+                                    <button (click)="exportAgentDataPdf()" title="Download PDF" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-pdf"></i></button>
+                                        &nbsp;
+                                    <button (click)="exportAgentDataExcel()" title="Download Excel" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-excel"></i></button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-body" id="agentsTableDiv">
+                        <table id="agentsTable" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>TDR Agent</th>
+                                    <th>Mpesa Agent ID</th>
+                                    <th>Status</th>
+                                    <th>Block Date</th>
+                                    <th>#Disbursements</th>
+                                    <th>Last Trading Date</th>
+                                    <th>Last Visitation Date</th>
+                                    <th>Reason</th>
+                                    <th>Amount Paid</th>
+                                    <th>Percentage Commission(%)</th>
+                                    <th>Commission Amount</th>
+                                    <th>Next Payment Date</th>
+                                    <th>Next Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tdr_agent_visit of tdr_agent_visits">
+                                    <td>{{tdr_agent_visit.agent_id}}</td>
+                                    <td>{{tdr_agent_visit.visitation_date}}</td>
+                                    <td>{{tdr_agent_visit.reason}}</td>
+                                    <td>{{currencyFormart(tdr_agent_visit.amount_paid)}}</td>
+                                    <td>{{currencyFormart(tdr_agent_visit.agent_commission)}}</td>
+                                    <td>{{currencyFormart(tdr_agent_visit.commission_amount)}}</td>
+                                    <td>{{tdr_agent_visit.next_payment_date}}</td>
+                                    <td>{{currencyFormart(tdr_agent_visit.next_payment_amount)}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div *ngFor="let tdr_agent_visit of tdr_agent_visits" class="tdr-agent-visits-card card mb-2">
+                            <div class="card-body row">
+                             
+                              <div class="col-md-4 mb-1">
+                                {{tdr_agent_visit.agent_id}}<br>
+                                {{tdr_agent_visit.visitation_date}}<br>
+                                {{tdr_agent_visit.reason}}<br>
+                                {{currencyFormart(tdr_agent_visit.amount_paid)}}<br>
+                                {{currencyFormart(tdr_agent_visit.agent_commission)}}<br>
+                                {{tdr_agent_visit.next_payment_date}}<br>
+                                {{currencyFormart(tdr_agent_visit.next_payment_amount)}}<br>
+                              </div>
+                              <div class="col-md-4"></div>
+                              <div class="col-md-4"></div>
+                            </div>
+                          </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</main>

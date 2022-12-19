@@ -1,0 +1,29 @@
+/* selected link */
+.active {
+    color: #FFF !important;
+    background-color: #73187F !important;
+}
+
+// a {
+//     color: #FFF !important;
+//     background-color: #73187F !important;
+// }
+
+/* mouse over link */
+a:hover {
+  color: #FFF !important;
+  background-color: #73187F !important;
+}
+
+
+@media (min-width: 992px){
+    .navbar-expand-lg .navbar-collapse {
+        height: 50px !important;
+    } 
+       
+    .dropdown-menu-div{
+        left: 484px !important;
+        top: 55px;
+    }
+}
+

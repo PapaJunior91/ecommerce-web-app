@@ -1,0 +1,22 @@
+@media (max-width: 992px){
+    .table {
+        display: none !important;
+    }    
+    .small-text{
+        display: none;
+    }
+}
+
+@media (min-width: 992px){ 
+    .tdr-agent-card{
+        display: none !important;
+    }
+}
+
+#bulk_select_grp_btns{
+    display: none;
+}
+
+.form-check-input{
+    margin-left: 0 !important;
+}

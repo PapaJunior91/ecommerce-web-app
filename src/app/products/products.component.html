@@ -1,0 +1,267 @@
+<!--Main layout-->
+<main class="mx-lg-6">
+    <div class="container-fluid mt-2"> 
+
+      <div class="row wow fadeIn">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              Filter Product
+          </div>
+              <div class="card-body">
+                  <div class="input-group w-25">
+                      <div class="input-group-prepend">
+                          <button (click)="searchTDRAgent()" name="searchAgent" class="theme-color btn btn-info"><i class="fa fa-search"></i></button>
+                      </div>
+                      <input id="tdr_agent_name" type="text" class="form-control" name="tdr_agent_name" placeholder="Search..." (keyup)="searchTDRAgent()">
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    <br/>                
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+    <!--Edit Product-->
+    <div class="modal" tabindex="-1" role="dialog" #editProduct>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Grid column-->
+    <div class="col-lg-12">
+        
+      <!--Card-->
+      <div class="card mb-2">
+        <!--Card content-->
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6 align-self-center">
+                <span> Products</span>
+            </div>
+            <!-- <div class="col-3">
+              <div id="bulk_select_grp_btns" class="btn-group" role="group" aria-label="Basic example">
+                <button (click)="bulkArchive()" title="Archive Agent" type="button" class="btn btn-primary btn-small"><i class="fa fa-archive"></i></button>
+              </div>
+            </div> -->
+            <div class="col-6">
+              <div class="row  float-right">
+                  <button  title="Download PDF" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-pdf"></i></button>
+                      &nbsp;
+                  <button  title="Download Excel" type="button" class="theme-color btn btn-small btn-info theme-color"><i class="fas fa-file-excel"></i></button>
+                    &nbsp;
+                  <button (click)="openAddTDRAgentModal()" title="Download PDF" type="button" class="theme-color btn btn-small btn-info"><i class="fa fa-plus-circle"></i><span class="small-text"></span> </button>
+              </div>
+          </div>
+            <!-- <div class="col-3">
+                <div class="row float-right">
+                    <button (click)="openAddTDRAgentModal()" title="Download PDF" type="button" class="theme-color btn btn-small btn-info"><i class="fa fa-plus-circle"></i><span class="small-text">Add Product</span> </button>
+                </div>
+            </div> -->
+          </div>
+        </div>
+
+        <!--Message-->
+        <div class="alert alert-info  text-white" *ngIf="info_message">{{info_message}}</div>
+        <div class="alert alert-danger text-white"  *ngIf="error_message">{{error_message}}</div>
+        <div class="alert alert-success  text-white" *ngIf="success_message">{{success_message}}</div>
+         
+        <div class="card-body">
+          <mdb-tabs>
+            <mdb-tab title="Products List">
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Cost</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+              
+
+                <tbody>
+                  <div *ngIf="loading_spinner" style="position: relative;left: 700px;"  class="spinner-border text-primary" role="status"></div>
+                  <div *ngIf="no_data_found" style="position: relative;left: 700px;">No Data Found</div>
+                
+                  <tr *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize">
+                    <td>
+                      <input (click)="bulkSelect($event)" class="form-check-input" type="checkbox" [id]="product.id" />
+                    </td>
+                    <td>{{product.id}}</td>
+                    <td>{{product.product_name}}</td>
+                    <td><img [src]="web_root_url+product.product_image" height="50"></td>
+                    <td>{{product.product_cost}}</td>
+                    <td>{{product.product_price}}</td>
+                    <td></td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="theme-color btn btn-info" (click)="openUploadMpesaAgentLoansModal(product.id)">
+                          <i class="fas fa-archive"></i>
+                        </button>
+                        <button class="theme-color btn btn-info" (click)="openEditTDRAgentModal(product)">
+                          <i class="fas fa-pencil"></i>
+                        </button>
+                        <!-- <button class="theme-color btn btn-small btn-info" (click)="uploadMpesaAgent()">
+                          <i class="fas fa-archive"></i>
+                        </button> -->
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="products.length">
+              </ngb-pagination>
+
+              <div *ngFor="let tdr_agent of products" class="tdr-agent-card card mb-2">
+                <div class="card-body row">
+                  <div class="col-md-4 text-center">
+                    <img src="../../assets/img/user-white-black.png" height="100px">
+                  </div>
+                  <div class="col-md-4 mb-1">
+                    {{tdr_agent.username}}<br> 
+                    {{tdr_agent.email}}<br>
+                    {{tdr_agent.phone_number}}<br>
+                    {{tdr_agent.last_login}}<br>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button class="theme-color btn btn-small btn-info theme-color">
+                        <i class="fas fa-archive"></i>
+                      </button>
+                      <button class="theme-color btn btn-info theme-color" (click)="openEditTDRAgentModal(tdr_agent)">
+                        <i class="fas fa-pencil"></i>
+                      </button>
+                      <button class="theme-color btn btn-info theme-color" (click)="openUploadMpesaAgentLoansModal(tdr_agent.user_id)">
+                        <i class="fas fa-upload"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mdb-tab>
+            <mdb-tab title="Product Stocked">
+              <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>#</th>
+                      <th>Product ID</th>
+                      <th>Product Name</th>
+                      <th>Quantity Stocked</th>
+                      <th>Date</th>
+                      <th>Stocked By</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+
+            
+
+              <tbody>
+                <div *ngIf="loading_spinner" style="position: relative;left: 700px;"  class="spinner-border text-primary" role="status"></div>
+                <div *ngIf="no_data_found" style="position: relative;left: 700px;">No Data Found</div>
+              
+                <tr *ngFor="let tdr_agent of products | slice: (page-1) * pageSize : page * pageSize">
+                  <td>
+                    <input (click)="bulkSelect($event)" class="form-check-input" type="checkbox" [id]="tdr_agent.user_id" />
+                  </td>
+                  <td>{{tdr_agent.user_id}}</td>
+                  <td><img style="border-radius: 50%;" [src]="root_url+tdr_agent.profile_photo" height="50"></td>
+                  <td>{{tdr_agent.username}}</td>
+                  <td>{{tdr_agent.phone_number}}</td>
+                  <td>{{tdr_agent.last_login}}</td>
+                  <td>{{tdr_agent.status}}</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="theme-color btn btn-info" (click)="openUploadMpesaAgentLoansModal(tdr_agent.user_id)">
+                        <i class="fas fa-upload"></i>
+                      </button>
+                      <button class="theme-color btn btn-info" (click)="openEditTDRAgentModal(tdr_agent)">
+                        <i class="fas fa-pencil"></i>
+                      </button>
+                      <button class="theme-color btn btn-small btn-info">
+                        <i class="fas fa-archive"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ngb-pagination
+              [(page)]="page"
+              [pageSize]="pageSize"
+              [collectionSize]="products.length">
+            </ngb-pagination>
+
+            <div *ngFor="let tdr_agent of products" class="tdr-agent-card card mb-2">
+              <div class="card-body row">
+                <div class="col-md-4 text-center">
+                  <img src="../../assets/img/user-white-black.png" height="100px">
+                </div>
+                <div class="col-md-4 mb-1">
+                  {{tdr_agent.username}}<br> 
+                  {{tdr_agent.email}}<br>
+                  {{tdr_agent.phone_number}}<br>
+                  {{tdr_agent.last_login}}<br>
+                </div>
+                <div class="col-md-4 text-center">
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="theme-color btn btn-small btn-info theme-color">
+                      <i class="fas fa-archive"></i>
+                    </button>
+                    <button class="theme-color btn btn-info theme-color" (click)="openEditTDRAgentModal(tdr_agent)">
+                      <i class="fas fa-pencil"></i>
+                    </button>
+                    <button class="theme-color btn btn-info theme-color" (click)="openUploadMpesaAgentLoansModal(tdr_agent.user_id)">
+                      <i class="fas fa-upload"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mdb-tab>
+          </mdb-tabs>
+
+        
+
+           
+        </div>
+        <!--Card content-->
+
+      </div>
+      <!--Card-->
+
+    </div>
+    <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+    </div>
+</main>
